@@ -4,3 +4,7 @@ body {
 	 */
   font: 100%/1.5 system-ui;
 }
+.fit-picture {
+    max-width: 50%; /* Adjust this percentage as needed */
+    height: auto; /* This maintains the aspect ratio */
+}
