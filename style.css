@@ -1,8 +1,11 @@
 body {
-  /* Set line height to 1.5 times the font size
-	   and use the OS’s UI font as the website font
-	 */
   font: 100%/1.5 system-ui;
+  max-width: 100ch;
+  margin-block: 0; /* This sets top and bottom margin to 0 */
+  margin-inline: auto; /* This centers the content horizontally */
+  padding: 1rem;
+  color: #333;
+  background-color: #fff;
 }
 .fit-picture {
     max-width: 50%; /* Adjust this percentage as needed */
