@@ -1,16 +1,18 @@
 body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
-  margin-block: 0; /* This sets top and bottom margin to 0 */
-  margin-inline: auto; /* This centers the content horizontally */
+  margin-block: 0;
+  margin-inline: auto;
   padding: 1rem;
   color: #333;
   background-color: #fff;
 }
+
 .fit-picture {
-    max-width: 50%; /* Adjust this percentage as needed */
-    height: auto; /* This maintains the aspect ratio */
+    max-width: 50%;
+    height: auto;
 }
+
 html {
   --color-accent: oklch(65% 50% 0);
   accent-color: var(--color-accent);
@@ -43,4 +45,45 @@ nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
   padding-bottom: 0.1em;
   background-color: oklch(from var(--color-accent) 95% 5% h);
+}
+
+/* Contact Form Styles */
+input, textarea, button {
+  font: inherit;
+}
+
+form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+}
+
+label {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+button[type="submit"] {
+  grid-column: 1 / -1;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  padding: 0.5em 1em;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.9;
 }
