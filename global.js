@@ -46,5 +46,45 @@ function createNavigation() {
   document.body.prepend(nav);
 }
 
-// Call the function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', createNavigation);
+function createColorSchemeSwitcher() {
+  document.body.insertAdjacentHTML(
+    'afterbegin',
+    `
+    <label class="color-scheme">
+      Theme:
+      <select>
+        <option value="light dark">Automatic</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>`
+  );
+}
+
+function setColorScheme(colorScheme) {
+  document.documentElement.style.setProperty('color-scheme', colorScheme);
+  const select = document.querySelector('.color-scheme select');
+  if (select) {
+    select.value = colorScheme;
+  }
+  localStorage.colorScheme = colorScheme;
+}
+
+function setupColorSchemeSwitch() {
+  const select = document.querySelector('.color-scheme select');
+  
+  if ("colorScheme" in localStorage) {
+    setColorScheme(localStorage.colorScheme);
+  }
+  
+  select.addEventListener('input', function (event) {
+    setColorScheme(event.target.value);
+  });
+}
+
+// Call the functions when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  createNavigation();
+  createColorSchemeSwitcher();
+  setupColorSchemeSwitch();
+});
