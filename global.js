@@ -4,7 +4,16 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// ... (rest of the code)
+// Define pages array
+let pages = [
+  { url: '', title: 'Home' },
+  { url: 'projects/', title: 'Projects' },
+  { url: 'contact/', title: 'Contact' },
+  { url: 'cv.html', title: 'CV/Resume' },
+  { url: 'https://github.com/c-hutchings-Norco', title: 'GitHub' }
+];
+
+const ARE_WE_HOME = document.documentElement.classList.contains('home');
 
 function createNavigation() {
   let nav = document.createElement('nav');
@@ -20,7 +29,7 @@ function createNavigation() {
     a.href = url;
     a.textContent = title;
 
-    // Step 3.2: Highlighting current page and opening external links in new tab
+    // Highlighting current page and opening external links in new tab
     a.classList.toggle(
       'current',
       a.host === location.host && a.pathname === location.pathname
