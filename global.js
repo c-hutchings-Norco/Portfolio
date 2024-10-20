@@ -4,16 +4,7 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// Step 3.1: Adding the navigation menu
-let pages = [
-  { url: '', title: 'Home' },
-  { url: 'projects/', title: 'Projects' },
-  { url: 'contact/', title: 'Contact' },
-  { url: 'cv.html', title: 'CV/Resume' },
-  { url: 'https://github.com/c-hutchings-Norco', title: 'GitHub' }
-];
-
-const ARE_WE_HOME = document.documentElement.classList.contains('home');
+// ... (rest of the code)
 
 function createNavigation() {
   let nav = document.createElement('nav');
