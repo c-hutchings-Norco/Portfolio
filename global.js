@@ -4,12 +4,12 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// Define pages array
+// Define pages array with correct URLs
 let pages = [
-  { url: '/Portfolio/', title: 'Home' },
-  { url: '/Portfolio/projects/', title: 'Projects' },
-  { url: '/Portfolio/contact/', title: 'Contact' },
-  { url: '/Portfolio/cv.html', title: 'CV/Resume' },
+  { url: '/', title: 'Home' },
+  { url: '/projects/', title: 'Projects' },
+  { url: '/contact/', title: 'Contact' },
+  { url: '/cv.html', title: 'CV/Resume' },
   { url: 'https://github.com/c-hutchings-Norco', title: 'GitHub' }
 ];
 
@@ -22,8 +22,10 @@ function createNavigation() {
     let url = p.url;
     let title = p.title;
 
-    // Adjust URL if not on home page and URL is not absolute
-    url = !ARE_WE_HOME && !url.startsWith('http') ? '../' + url : url;
+    // Prepend '/Portfolio' to internal links
+    if (url.startsWith('/') && !url.startsWith('/Portfolio')) {
+      url = '/Portfolio' + url;
+    }
 
     let a = document.createElement('a');
     a.href = url;
@@ -32,7 +34,7 @@ function createNavigation() {
     // Highlighting current page and opening external links in new tab
     a.classList.toggle(
       'current',
-      a.host === location.host && a.pathname === location.pathname
+      a.pathname === location.pathname
     );
 
     a.toggleAttribute('target', a.host !== location.host);
