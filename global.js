@@ -1,29 +1,48 @@
-console.log('IT’S ALIVE!');
+console.log('IT'S ALIVE!');
 
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// New code for automatic current page link
-function setCurrentNavLink() {
-    // Step 2.1: Get an array of all nav links
-    const navLinks = $$("nav a");
+// Step 3.1: Adding the navigation menu
+let pages = [
+  { url: '', title: 'Home' },
+  { url: 'projects/', title: 'Projects' },
+  { url: 'contact/', title: 'Contact' },
+  { url: 'cv.html', title: 'CV/Resume' },
+  { url: 'https://github.com/c-hutchings-Norco', title: 'GitHub' }
+];
+
+const ARE_WE_HOME = document.documentElement.classList.contains('home');
+
+function createNavigation() {
+  let nav = document.createElement('nav');
   
-    // Step 2.2: Find the link to the current page
-    let currentLink = navLinks.find(
-      a => a.host === location.host && a.pathname === location.pathname
+  for (let p of pages) {
+    let url = p.url;
+    let title = p.title;
+
+    // Adjust URL if not on home page and URL is not absolute
+    url = !ARE_WE_HOME && !url.startsWith('http') ? '../' + url : url;
+
+    let a = document.createElement('a');
+    a.href = url;
+    a.textContent = title;
+
+    // Step 3.2: Highlighting current page and opening external links in new tab
+    a.classList.toggle(
+      'current',
+      a.host === location.host && a.pathname === location.pathname
     );
-  
-    // Step 2.3: Add the current class to the current page link
-    if (currentLink) {
-      currentLink.classList.add('current');
-      currentLink.setAttribute('aria-current', 'page');
-      
-      // Set the body class based on the current page
-      const pageName = currentLink.textContent.toLowerCase().replace(/\s+/g, '-');
-      document.body.className = `${pageName}-page`;
-    }
+
+    a.toggleAttribute('target', a.host !== location.host);
+    if (a.hasAttribute('target')) a.setAttribute('target', '_blank');
+
+    nav.append(a);
   }
-  
-  // Call the function when the DOM is fully loaded
-  document.addEventListener('DOMContentLoaded', setCurrentNavLink);
+
+  document.body.prepend(nav);
+}
+
+// Call the function when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', createNavigation);
